@@ -1,0 +1,20 @@
+{
+  "packageName": "ai-nexus-protocol-embedded",
+  "protocolVersion": "1.0",
+  "supportedVersions": [
+    "1.0"
+  ],
+  "updatedAt": "2026-11-02T00:00:00.000Z",
+  "sha256Digest": "a31055e25ebdece46e7f1343a82bb836e5d6d382d049f9685b413e33ba9b35d0",
+  "syncedFrom": "ai-nexus-chatbot/src/protocol",
+  "files": [
+    "index.ts",
+    "crypto/index.ts",
+    "types/index.ts",
+    "versioning/index.ts",
+    "events/index.ts",
+    "validators/index.ts",
+    "schemas/index.ts",
+    "sdk/index.ts"
+  ]
+}

@@ -1,0 +1,48 @@
+# ============================================================================
+# AI NEXUS GATEWAY — Render Infrastructure-as-Code Blueprint (render.yaml)
+# Repository: https://github.com/Pavanboga07/ai-nexus-gateway
+#
+# Architectural Scope:
+# - Deploys ONLY the public AI Nexus Gateway Web Service (HTTPS + WSS /ws/node).
+# - Does NOT deploy the local AI Nexus Chatbot or migrate Chatbot SQLite.
+# - Uses a 1 GB Render Persistent Disk at /var/data for durable Gateway SQLite
+#   state (registered public AI identities, offline message queue, replay nonces,
+#   and delivery acknowledgements).
+# - Restricted to numInstances: 1 because Render Persistent Disks and SQLite
+#   single-writer WAL mode require a single active instance.
+# ============================================================================
+
+services:
+  - type: web
+    name: ai-nexus-gateway
+    runtime: node
+    plan: starter
+    region: oregon
+    branch: main
+    numInstances: 1
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/ready
+    disk:
+      name: gateway-sqlite-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GATEWAY_HOST
+        value: 0.0.0.0
+      - key: GATEWAY_DATA_DIR
+        value: /var/data
+      - key: GATEWAY_DB_PATH
+        value: /var/data/gateway.sqlite
+      - key: NODE_WS_PATH
+        value: /ws/node
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: GATEWAY_RATE_LIMIT_PER_MINUTE
+        value: "60"
+      - key: GATEWAY_PUBLIC_URL
+        sync: false
+      - key: GATEWAY_WS_URL
+        sync: false

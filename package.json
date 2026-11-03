@@ -1,0 +1,29 @@
+{
+  "name": "ai-nexus-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Nexus Gateway — Independent public communication infrastructure for Personal AIs (HTTPS API + WSS /ws/node).",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "dev": "tsx src/server/gatewayMain.ts",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "start": "node --import tsx src/server/gatewayMain.ts",
+    "test": "node --import tsx --test tests/gateway.test.ts"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "tsx": "^4.21.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/ws": "^8.5.14",
+    "typescript": "^5.8.2"
+  }
+}
