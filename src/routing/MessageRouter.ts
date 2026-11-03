@@ -226,7 +226,7 @@ export class MessageRouter {
 
     // 10. Dispatch over live WebSocket to recipient node and await recipient node's response!
     this.wsTransport!.deliverInvocationToNode(recipient.aiId, record);
-    const completedRecord = await this.invocations.waitForCompletion(record.requestId, 9000);
+    const completedRecord = await this.invocations.waitForCompletion(record.requestId, 20000);
 
     return {
       accepted: true,
